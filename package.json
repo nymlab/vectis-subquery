@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "subql build",
-    "publish": "subql publish",
+    "publish": "subql publish -f",
     "dev": "rm -rf ./.data && npm run build && npm run start:docker",
     "prepack": "rm -rf dist && npm build",
     "test": "jest",
@@ -14,7 +14,8 @@
   "files": [
     "dist",
     "schema.graphql",
-    "project.yaml"
+    "juno-main.yaml",
+    "juno-testnet.yaml"
   ],
   "devDependencies": {
     "@cosmjs/stargate": "^0.28.9",

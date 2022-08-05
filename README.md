@@ -18,8 +18,10 @@ yarn codegen
 yarn build
 ```
 
-### 4. Run locally
+### 4. Publish
 
 ```shell
-yarn start:docker
+yarn publish `filename_path`
 ```
+
+#### You can run the indexer in local using the docker image. Instead of publishing you can run `yarn dev` command.

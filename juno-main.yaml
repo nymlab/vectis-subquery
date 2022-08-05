@@ -1,0 +1,42 @@
+specVersion: 1.0.0
+name: vectis-indexer
+version: 0.0.1
+runner:
+  node:
+    name: "@subql/node-cosmos"
+    version: ">=0.1.0"
+  query:
+    name: "@subql/query"
+    version: "*"
+description: >-
+  This project is used for indexing vectis scwallets
+repository: https://github.com/nymlab/vectis-subquery
+schema:
+  file: ./schema.graphql
+
+network:
+  chainId: juno-1
+  # You must connect to an archive (non-pruned) node
+  endpoint: https://rpc-juno.itastakers.com/
+  # Using a dictionary can massively improve indexing speed
+  dictionary: https://api.subquery.network/sq/subquery/cosmos-juno-dictionary
+
+dataSources:
+  - kind: cosmos/Runtime
+    startBlock: 1099835
+    mapping:
+      file: "./dist/index.js"
+      handlers:
+        #- handler: handleBlock
+        #  kind: cosmos/BlockHandler
+        - handler: onWalletCreation
+          kind: cosmos/MessageHandler
+          filter:
+            type: "/cosmwasm.wasm.v1.MsgExecuteContract"
+            contractCall: create_wallet
+            values:
+              contract: "juno1sk3tvet0f2azha4tyuqcl4fdf70tk9cqw8t63nu3jky5yze48aeqf76gcg"
+        - handler: onWalletUpdate
+          kind: cosmos/MessageHandler
+          filter:
+            type: "/cosmwasm.wasm.v1.MsgExecuteContract"
