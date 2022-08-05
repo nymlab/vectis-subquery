@@ -4,7 +4,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "subql build",
-    "start": "rm -rf ./.data && npm run build && npm run start:docker",
+    "publish": "subql publish",
+    "dev": "rm -rf ./.data && npm run build && npm run start:docker",
     "prepack": "rm -rf dist && npm build",
     "test": "jest",
     "codegen": "subql codegen",
