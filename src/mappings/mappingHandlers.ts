@@ -16,8 +16,7 @@ export async function onWalletCreation(cmsg: CosmosMessage): Promise<void> {
 
   const { sender, msg } = cmsg.msg.decodedMsg;
 
-  const { label, guardians, relayers, proxy_initial_funds } =
-    msg.create_wallet.create_wallet_msg;
+  const { label, guardians, relayers } = msg.create_wallet.create_wallet_msg;
 
   const scwallet = SCWallet.create({
     id: scwalletAddress as string,
@@ -26,7 +25,6 @@ export async function onWalletCreation(cmsg: CosmosMessage): Promise<void> {
     user_address: sender,
     guardians: guardians.addresses,
     relayers,
-    funds: proxy_initial_funds,
   });
 
   await scwallet.save();

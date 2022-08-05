@@ -1,15 +1,8 @@
-type Coin @jsonField {
-  denom: String!
-  amount: String!
-}
-
-
 type SCWallet @entity {
   id: ID!
   label: String!
   frozen: Boolean!
-  user_address: String! @index(unique: false)
+  user_address: String!
   guardians: [String!]!
   relayers: [String]!
-  funds: [Coin]!
 }

@@ -1,5 +1,5 @@
 specVersion: 1.0.0
-name: juno-subql-starter
+name: vectis-indexer
 version: 0.0.1
 runner:
   node:
@@ -9,8 +9,8 @@ runner:
     name: "@subql/query"
     version: "*"
 description: >-
-  This project can be use as a starting point for developing your Cosmos (Juno) based SubQuery project
-repository: https://github.com/subquery/juno-subql-starter
+  This project is used for indexing vectis scwallets
+repository: https://github.com/nymlab/vectis-subquery
 schema:
   file: ./schema.graphql
 
