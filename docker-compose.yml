@@ -30,7 +30,7 @@ services:
     volumes:
       - ./:/app
     command:
-      - -f=/app
+      - -f=/app/juno-testnet.yaml
       - --db-schema=app
     healthcheck:
       test: ["CMD", "curl", "-f", "http://subquery-node:3000/ready"]
