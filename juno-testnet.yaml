@@ -15,7 +15,7 @@ schema:
   file: ./schema.graphql
 
 network:
-  chainId: uni-3
+  chainId: uni-5
   # You must connect to an archive (non-pruned) node
   endpoint: https://rpc.uni.juno.deuslabs.fi/
   # Using a dictionary can massively improve indexing speed

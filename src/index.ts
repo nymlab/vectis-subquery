@@ -1,2 +1,2 @@
-export * from './mappings/onWalletCreation';
-export * from './mappings/onWalletUpdate';
+export * from './mappings/onAccountCreation';
+export * from './mappings/onAccountUpdate';
