@@ -4,12 +4,12 @@ version: 0.0.1
 runner:
   node:
     name: "@subql/node-cosmos"
-    version: ">=0.1.0"
+    version: "*"
   query:
     name: "@subql/query"
     version: "*"
 description: >-
-  This project is used for indexing vectis scwallets
+  This project is used for indexing vectis
 repository: https://github.com/nymlab/vectis-subquery
 schema:
   file: ./schema.graphql
@@ -23,20 +23,40 @@ network:
 
 dataSources:
   - kind: cosmos/Runtime
-    startBlock: 1099835
+    startBlock: 1102600
+
     mapping:
       file: "./dist/index.js"
       handlers:
-        #- handler: handleBlock
-        #  kind: cosmos/BlockHandler
-        - handler: onWalletCreation
-          kind: cosmos/MessageHandler
+        - handler: onWalletInstantiate
+          kind: cosmos/EventHandler
           filter:
-            type: "/cosmwasm.wasm.v1.MsgExecuteContract"
-            contractCall: create_wallet
-            values:
-              contract: "juno1sk3tvet0f2azha4tyuqcl4fdf70tk9cqw8t63nu3jky5yze48aeqf76gcg"
-        - handler: onWalletUpdate
-          kind: cosmos/MessageHandler
+            type: "wasm-vectis.proxy.v1.MsgInstantiate"
+        - handler: onAddRelayer
+          kind: cosmos/EventHandler
           filter:
-            type: "/cosmwasm.wasm.v1.MsgExecuteContract"
+            type: "wasm-vectis.proxy.v1.MsgAddRelayer"
+        - handler: onRemoveRelayer
+          kind: cosmos/EventHandler
+          filter:
+            type: "wasm-vectis.proxy.v1.MsgRemoveRelayer"
+        - handler: onRevertFreezeStatus
+          kind: cosmos/EventHandler
+          filter:
+            type: "wasm-vectis.proxy.v1.MsgRevertFreezeStatus"
+        - handler: onRotateControllerKey
+          kind: cosmos/EventHandler
+          filter:
+            type: "wasm-vectis.proxy.v1.MsgRotateControlKey"
+        - handler: onUpdateGuardian
+          kind: cosmos/EventHandler
+          filter:
+            type: "wasm-vectis.proxy.v1.MsgUpdateGuardians"
+        - handler: onUpdateLabel
+          kind: cosmos/EventHandler
+          filter:
+            type: "wasm-vectis.proxy.v1.MsgUpdateLabel"
+        - handler: onReplyMultisigInstantiate
+          kind: cosmos/EventHandler
+          filter:
+            type: "wasm-vectis.proxy.v1.MsgReplyMultisigInstantiate"

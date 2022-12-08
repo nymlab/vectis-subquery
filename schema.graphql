@@ -1,8 +1,21 @@
-type VectisAccount @entity {
+type Wallet @entity {
   id: ID!
+  code_id: Int!
+  multisig_code_id: Int!
   label: String!
   frozen: Boolean!
   controller_addr: String!
-  guardians: [String!]!
+  guardians: GuardianGroup!
   relayers: [String]!
+  created_at: Date!
+  update_at: Date!
+}
+
+type GuardianGroup @entity {
+  id: ID!
+  wallet: Wallet!
+  guardians: [String!]!
+  multisig_code_id: Int
+  multisig_address: String
+  created_at: Date!
 }
