@@ -12,11 +12,12 @@ interface Attributes {
   guardians: string;
 }
 
-export async function onWalletInstantiation({ event }: CosmosEvent): Promise<void> {
+export async function onWalletInstantiation({ event, msg }: CosmosEvent): Promise<void> {
   const attributes = event.attributes.reduce((acc, attr) => {
     acc[attr.key] = attr.value;
     return acc;
   }, {} as Attributes);
+  const walletId = msg.msg.decodedMsg.contract;
 
   const guardians = GuardianGroup.create({
     id: uuidv4(),
@@ -28,7 +29,7 @@ export async function onWalletInstantiation({ event }: CosmosEvent): Promise<voi
   });
 
   const wallet = Wallet.create({
-    id: attributes.contract_address,
+    id: walletId,
     controller_addr: attributes.controller_address,
     multisig_code_id: parseInt(attributes.multisig_code_id),
     code_id: parseInt(attributes.code_id),

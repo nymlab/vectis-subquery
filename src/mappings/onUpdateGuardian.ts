@@ -2,9 +2,9 @@ import { CosmosEvent } from '@subql/types-cosmos';
 import { GuardianGroup, Wallet } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
-export async function onUpdateGuardian({ event }: CosmosEvent): Promise<void> {
+export async function onUpdateGuardian({ event, msg }: CosmosEvent): Promise<void> {
   const { value: guaridans } = event.attributes.find((attr) => attr.key === 'guaridans');
-  const { value: walletId } = event.attributes.find((attr) => attr.key === 'contract_address');
+  const walletId = msg.msg.decodedMsg.contract;
 
   const wallet = await Wallet.get(walletId);
   await GuardianGroup.remove(wallet.guardiansId);
